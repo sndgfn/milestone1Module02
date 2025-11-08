@@ -58,13 +58,29 @@ class LinkedList {
         newNode.next = holdingNode;
         this.length++
     }
-//kono node delete korte
-    remove(){
-        const leadingNode=this._traverseToIndex(index-1)
-        
+    //kono node delete korte
+    remove(index) {
+        //first er ta remove korle
+        if (index === 0) {
+            const removedItem = this.head.value;
+            this.head = this.head.next;
+            if (this.length === 1) {
+                this.tail = null
+            }
+            this.length--
+            return removedItem;
+        };
+
+        const leadingNode = this._traverseToIndex(index - 1)
+        const nodeToRemove = leadingNode.next;// leadingNode.next diye removeable node re dorse 
+        leadingNode.next = nodeToRemove.next; //aiber oi removeable node er next r ager node er next re connect kore dise
+
+
+        if (leadingNode.next === null) {//jodi last er node remove kore
+            this.tail = leadingNode
+        }
+        return nodeToRemove.value;
     }
-
-
 
     //leading node finding
     //private helper methood ,ai object er baire use korte hoy na ai function 
@@ -90,13 +106,17 @@ class LinkedList {
 }
 
 const linkedList = new LinkedList();
-//apend 
-linkedList.append(0)
-linkedList.append(1)
-linkedList.append(3)
-linkedList.insert(2,200)
+// //apend 
+linkedList.append('a') // 0
+// linkedList.append('b') // 1
+// linkedList.append('c') // 2
+// linkedList.insert(2, 200)
 // prepend
 // linkedList.prepend(10)
 // linkedList.prepend(20)
 // linkedList.prepend(30)
+// linkedList.print();
+// linkedList.remove(2) --->ermove opration
+// linkedList.remove(2)
+linkedList.remove(0)
 linkedList.print();
